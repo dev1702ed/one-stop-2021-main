@@ -11,14 +11,12 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
+const mongoose = require('mongoose');
 const nconf = require('./config');
 const routers = require('./routers');
 const { writeError, writeResponse } = require('./helpers/response');
 
-const nodemailer = require('nodemailer');
-const keys = require('./keys')
-const mongoose = require('mongoose');
-const cookieSession = require('cookie-session')
+const keys = require('./keys');
 
 const app = express();
 const api = express();
@@ -38,8 +36,8 @@ const swaggerDefinition = {
 // connect to mongodb
 
 mongoose.connect(keys.mongodb.dbURI, () => {
-    console.log('connected to mongodb')
-})
+  console.log('connected to mongodb');
+});
 
 // options for the swagger docs
 const options = {
@@ -85,9 +83,9 @@ api.use((_req, res, next) => {
 // api routes
 api.use(routers.userRouter.userRouter);
 api.use(routers.authRouter.authRouter);
-api.use(routers.contactRouter.contactRouter)
-api.use(routers.timingRouter.timingRouter)
-api.use(routers.emailRouter.emailRouter)
+api.use(routers.contactRouter.contactRouter);
+api.use(routers.timingRouter.timingRouter);
+api.use(routers.emailRouter.emailRouter);
 
 // For demo auth purposes only
 api.get('/user-info', (req, res) => {

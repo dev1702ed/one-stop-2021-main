@@ -1,16 +1,17 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const contactSchema = new Schema({
-    type:String,
-    name: String,
-    service:String,
-    designation:String,
-    phoneNumber:Number,
-    email: String,
-    websiteURL: String
+  type: String,
+  name: String,
+  service: String,
+  designation: String,
+  phoneNumber: Number,
+  email: String,
+  websiteURL: String,
 
-})
+});
 
 const contacts = mongoose.model('contact', contactSchema);
 

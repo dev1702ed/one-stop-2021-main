@@ -1,4 +1,3 @@
-
 // Convenient wrapper around all controllers
 
 exports.emailRouter = require('./emailRouter');
