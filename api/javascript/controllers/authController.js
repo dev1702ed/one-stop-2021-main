@@ -9,15 +9,13 @@ const microsoftLoginCallback = (accessToken, refreshToken, profile, done) => {
     if (currenUser) {
       return done(null, currenUser);
     }
-
     new User({
       name: profile.displayName,
       microsoftid: profile.id,
       emailid: profile.emails[0].value,
-    }).save().then((newUser) =>
-      return(null, newUser);
+    }).save().then((newUser) => done(null, newUser));
   });
-}
+};
 
 const postMicrosoftLogin = (req, res) => {
   writeResponse(res, req.user);

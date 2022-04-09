@@ -1,4 +1,4 @@
-const ContactsModel = require('../models/contacts');
+const ContactsModel = require('../models/contactsChild');
 
 /**
  * @swagger
@@ -37,7 +37,7 @@ const ContactsModel = require('../models/contacts');
  *         description: Error message(s)
  */
 
-exports.createcontact = (req, res) => {
+exports.createContact = (req, res) => {
   if (!req.body) {
     res.status(400).send({ message: 'Content can not be empty!' });
     return;
@@ -53,50 +53,27 @@ exports.createcontact = (req, res) => {
         phoneNumber: req.body.phoneNumber,
         email: req.body.email,
         websiteURL: req.body.websiteURL,
-      }).save();
+      }).save().then(contact => {
+        res.json(contact);
+      });
     }
   });
 };
 
-/**
- * @swagger
- * /api/v0/updatecontact/:id:
- *   post:
- *     tags:
- *     - users
- *     description: update user info to DB
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *             category:
- *               type: string
- *             name:
- *               type: string
- *             service:
- *               type: string
- *             designation:
- *               type: string
- *             phoneNumber:
- *               type: number
- *             email:
- *               type: string
- *             websiteURL:
- *               type: string
- *
- *     responses:
- *       201:
- *         description: New user added to DB
- *       400:
- *         description: Error message(s)
- */
+exports.getAllContacts = (req,res) => {
+  console.log("decdcd");
+  ContactsModel.findAll({})
+  .then(data => {
+    res.json(data)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).send({ message : err.message || "Error Occurred while retriving user information" })
+})
+};
 
-exports.updatecontact = (req, res) => {
-  const { id } = req.params;
+exports.updateContact = (req, res) => {
+  const { id } = req.params.id;
   ContactsModel.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then((data) => {
       if (!data) {
@@ -107,7 +84,7 @@ exports.updatecontact = (req, res) => {
     });
 };
 
-exports.deletecontact = (req, res) => {
+exports.deleteContact = (req, res) => {
   const { id } = req.params;
 
   ContactsModel.findByIdAndDelete(id)
@@ -121,3 +98,4 @@ exports.deletecontact = (req, res) => {
       }
     });
 };
+

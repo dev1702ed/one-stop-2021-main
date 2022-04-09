@@ -9,5 +9,5 @@ module.exports = {
     ecmaVersion: 'latest',
     parser: '@babel/eslint-parser',
   },
-  rules: {},
+  rules: {'linebreak-style: ["error", "windows"]'}
 };

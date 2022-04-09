@@ -6,6 +6,7 @@ const UserSchema = new Schema({
   name: String,
   microsoftid: String,
   emailid: String,
+  role: String,
 });
 
 const User = mongoose.model('user', UserSchema);

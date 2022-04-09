@@ -86,6 +86,7 @@ api.use(routers.authRouter.authRouter);
 api.use(routers.contactRouter.contactRouter);
 api.use(routers.timingRouter.timingRouter);
 api.use(routers.emailRouter.emailRouter);
+api.use(routers.roleRouter.roleRouter);
 
 // For demo auth purposes only
 api.get('/user-info', (req, res) => {
